@@ -53,7 +53,16 @@ public class Camera extends JFrame implements Runnable, ActionListener{
 			
 			final byte[] jpeg = new byte[AxisM3006V.IMAGE_BUFFER_SIZE];
 			int si = cam.getJPEG(jpeg, 0);
-			System.out.println(si);
+			byte[] t = new byte[8];
+			cam.getTime(t, 0);
+			long tr = 0;
+			for (int j = 0; j < t.length; j++) {
+				long lt = 0L|t[j];
+				tr |= lt<<(8*(7-j));
+				System.out.println(0L|t[j]);
+			}
+			System.out.println(Long.toHexString(tr));
+//			System.out.println(si);
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
 					refreshImage(jpeg);
