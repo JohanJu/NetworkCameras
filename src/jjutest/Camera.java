@@ -15,7 +15,7 @@ import javax.swing.SwingUtilities;
 import se.lth.cs.eda040.fakecamera.AxisM3006V;
 
 @SuppressWarnings("serial")
-public class Camera extends JFrame implements Runnable, ActionListener{
+public class Camera extends JFrame implements Runnable, ActionListener {
 	ImageIcon icon;
 	JButton jb;
 	Semaphore sem = new Semaphore(0);
@@ -26,19 +26,19 @@ public class Camera extends JFrame implements Runnable, ActionListener{
 	}
 
 	public Camera() {
-	    super();
-	    getContentPane().setLayout(new BorderLayout());
-	    icon = new ImageIcon();
-	    JLabel label = new JLabel(icon);
-	    jb = new JButton("Next");
-	    jb.addActionListener(this);
-	    add(label, BorderLayout.NORTH);
-	    add(jb, BorderLayout.SOUTH);
-//	    this.pack();
-	    this.setSize(640, 520);
-	    this.setVisible(true);
-	    this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-	  }
+		super();
+		getContentPane().setLayout(new BorderLayout());
+		icon = new ImageIcon();
+		JLabel label = new JLabel(icon);
+		jb = new JButton("Next");
+		jb.addActionListener(this);
+		add(label, BorderLayout.NORTH);
+		add(jb, BorderLayout.SOUTH);
+		// this.pack();
+		this.setSize(640, 520);
+		this.setVisible(true);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
 
 	public void run() {
 		AxisM3006V cam = new AxisM3006V();
@@ -50,10 +50,19 @@ public class Camera extends JFrame implements Runnable, ActionListener{
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			
+
 			final byte[] jpeg = new byte[AxisM3006V.IMAGE_BUFFER_SIZE];
 			int si = cam.getJPEG(jpeg, 0);
-			System.out.println(si);
+			byte[] time = new byte[8];
+			cam.getTime(time, 0);
+			long lt = 0;
+			for (int j = 0; j < time.length; j++) {
+				long t = time[j] & 0xFF;
+				lt |= t<<(8*(7-j));
+			}
+			lt/=1000;
+			System.out.println(lt);
+			// System.out.println(si);
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
 					refreshImage(jpeg);
