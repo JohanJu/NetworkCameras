@@ -12,16 +12,22 @@ public class Client {
 		
 		Monitor monitor = new Monitor();
 		GUI gui = new GUI(monitor);
+		UpdatePicture_t updateGUI = new UpdatePicture_t(monitor, gui);
 
 		try {
 			FromServer_T read1 = new FromServer_T(args[0], Integer.parseInt(args[1]), monitor);
 			FromServer_T read2 = new FromServer_T(args[0], Integer.parseInt(args[2]), monitor);
 		
+			read1.start();
+			read2.start();
+			updateGUI.start();
 		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 
 	}
 
