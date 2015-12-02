@@ -12,6 +12,9 @@ public class ClientStream_T extends Thread {
 	OutputStream os;
 	Socket socket;
 	
+	byte hi;
+	byte low;
+	
 	public ClientStream_T(String server, int port) throws UnknownHostException, IOException{
 		this.server = server;
 		this.port = port;
@@ -25,7 +28,7 @@ public class ClientStream_T extends Thread {
 
 	public void run(){
 		
-		// Header
+		//Fetching Header
 		byte[] headerTime = new byte[8];
 		try {
 			is.read(headerTime,0,8);
@@ -37,6 +40,22 @@ public class ClientStream_T extends Thread {
 		}
 		PicData data = new PicData();
 		data.timeStamp = timeMillisFromArray(headerTime);
+		
+		//Fetching picture
+		int status = 0;
+		int size = (hi & 0xFF) * 255 + (low & 0xFF);
+		int bytesLeft = size;
+		int bytesRead = 0;
+		
+		do {
+			status = is.read(put.jpeg, bytesRead, bytesLeft);
+			if (status > 0) {
+				bytesRead += status;
+				bytesLeft -= status;
+			}
+		} while (status >= 0 && bytesLeft > 0);
+		
+		
 		
 		
 	}
