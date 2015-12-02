@@ -23,7 +23,7 @@ public class JPEGHTTPServer {
 
 	// ----------------------------------------------------------- MAIN PROGRAM
 
-	public static void main(String[]args, Monitor mon) {
+	public static void main(String[] args, Monitor mon) {
 		JPEGHTTPServer theServer = new JPEGHTTPServer(Integer.parseInt(args[0]), mon);
 		try {
 			theServer.handleRequests();
