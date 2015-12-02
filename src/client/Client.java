@@ -10,7 +10,7 @@ public class Client {
 			System.exit(1);
 		}
 		
-		int[] port = {Integer.parseInt(args[1]), Integer.parseInt(args[1])};
+		int[] port = {Integer.parseInt(args[1]), Integer.parseInt(args[2])};
 		Monitor monitor = new Monitor(port);
 		GUI gui = new GUI(monitor);
 		UpdatePicture_t updateGUI = new UpdatePicture_t(monitor, gui);

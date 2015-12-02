@@ -103,10 +103,12 @@ public class GUI extends JFrame implements ActionListener{
 		
 		switch(cam) {
 		case 0:
+			System.out.println("update 0 ");
 			icon1.setImage(image);
 			icon1.paintIcon(this, this.getGraphics(), 0, 60);
 			break;
 		case 1:
+			System.out.println("update 1 ");
 			icon2.setImage(image);
 			icon2.paintIcon(this, this.getGraphics(), 640, 60);
 			break;
