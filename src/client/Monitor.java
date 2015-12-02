@@ -3,9 +3,9 @@ package client;
 import java.util.LinkedList;
 
 public class Monitor {
-	public static final int AUTO  = 0;
-	public static final int MOVIE   = 1;
-	public static final int IDLE = 2;
+	public static final byte AUTO  = 0;
+	public static final byte MOVIE   = 1;
+	public static final byte IDLE = 2;
 	
 	LinkedList<PicData> buffert = new LinkedList<PicData>();
 	
