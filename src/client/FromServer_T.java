@@ -51,7 +51,7 @@ public class FromServer_T extends Thread {
 	System.out.println("size recieved: " + size);
 		int bytesLeft = size;
 		int bytesRead = 0;	
-		byte[] tempPicture = new byte[8];
+		byte[] tempPicture = new byte[size+5];
 		
 		do {
 			try {
