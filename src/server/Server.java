@@ -12,6 +12,7 @@ public class Server {
 		fromClient.start();
 		JHServer jhserver = new JHServer(mon, args[1]);
 		jhserver.start();
+
 	}
 	
 	private static class JHServer extends Thread {
