@@ -13,6 +13,7 @@ public class FromServer_T extends Thread {
 	
 	byte hi;
 	byte low;
+	byte mode;
 	
 	Monitor monitor;
 	
@@ -27,14 +28,16 @@ public class FromServer_T extends Thread {
 	}
 
 	public void run(){
-		while(true){
+		//while(true){
 		//Fetching Header
 		byte[] headerTime = new byte[8];
 		try {
 			is.read(headerTime,0,8);
-			byte mode = (byte) is.read();
-			byte hi = (byte) is.read();
-			byte low = (byte) is.read();
+			mode = (byte) is.read();
+			hi = (byte) is.read();
+			low = (byte) is.read();
+			System.out.println("hi = " + hi);
+			System.out.println("Low = " + low);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -45,7 +48,7 @@ public class FromServer_T extends Thread {
 		//Fetching picture
 		int status = 0;
 		int size = (hi & 0xFF) * 255 + (low & 0xFF);
-//		System.out.println("size recieved: " + size);
+	System.out.println("size recieved: " + size);
 		int bytesLeft = size;
 		int bytesRead = 0;	
 		byte[] tempPicture = new byte[8];
@@ -64,7 +67,7 @@ public class FromServer_T extends Thread {
 		
 		data.picture = tempPicture;
 		monitor.add(data);
-	}
+	//}
 	}
 		
 	

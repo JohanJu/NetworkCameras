@@ -16,12 +16,14 @@ public class ToClient_t extends Thread {
 	}
 
 	public void run() {
-		byte[] jpeg = new byte[AxisM3006V.IMAGE_BUFFER_SIZE + 7];
+		byte[] jpeg = new byte[AxisM3006V.IMAGE_BUFFER_SIZE + 11];
 		try {
-			while (!isInterrupted()) {
+			//while (!isInterrupted()) {
 				try {
 					jpeg = mon.getJpeg(old);
-					System.out.println("ser leng "+ ((jpeg[5] & 0xFF) * 255 + (jpeg[6] & 0xFF)));
+					System.out.println("ser leng "+ ((jpeg[9] & 0xFF) * 255 + (jpeg[10] & 0xFF)));
+					System.out.println("hi = " + jpeg[9]);
+					System.out.println("Low = " + jpeg[10]);
 					old = timeMillisFromArray(jpeg);
 					os.write(jpeg);
 				} catch (InterruptedException e1) {
@@ -31,7 +33,7 @@ public class ToClient_t extends Thread {
 //				} catch (InterruptedException e) {
 //				}
 
-			}
+			//}
 		} catch (IOException e) {
 		}
 	}

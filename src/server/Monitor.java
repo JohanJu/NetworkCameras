@@ -4,7 +4,7 @@ public class Monitor {
 	public static final byte AUTO  = 0;
 	public static final byte MOVIE   = 1;
 	public static final byte IDLE = 2;
-	private byte[] jpeg = new byte[AxisM3006V.IMAGE_BUFFER_SIZE+7];
+	private byte[] jpeg = new byte[AxisM3006V.IMAGE_BUFFER_SIZE+11];
 	private byte mode;
 	private long now = 0;
 	
