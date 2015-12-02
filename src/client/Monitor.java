@@ -27,7 +27,8 @@ public class Monitor {
 				e.printStackTrace();
 			}
 		}
-		return buffert.getLast();
+		System.out.println("Pop Pic");
+		return buffert.removeFirst();
 	}
 	
 	/*
@@ -49,6 +50,7 @@ public class Monitor {
 	
 	public synchronized void add(PicData data){
 		buffert.add(data);
+		System.out.println("add");
 		notifyAll();
 	}
 	
