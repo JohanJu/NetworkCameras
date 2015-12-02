@@ -61,7 +61,8 @@ public class FromServer_T extends Thread {
 			}
 		} while (status >= 0 && bytesLeft > 0);
 		
-		data.picture = tempPicture;				
+		data.picture = tempPicture;
+		monitor.add(data);
 	}
 	}
 		

@@ -41,5 +41,9 @@ public class Monitor {
 		return mode;
 	}
 	
+	public synchronized void add(PicData data){
+		buffert.add(data);
+		notifyAll();
+	}
 	
 }
