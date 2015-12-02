@@ -10,8 +10,8 @@ public class Server {
 		Thread fromClient = new FromClient_t(mon, Integer.parseInt(args[0]));
 		camToMonitor.start();
 		fromClient.start();
-		JHServer jhserver = new JHServer(mon);
-		jhserver.start();
+//		JHServer jhserver = new JHServer(mon);
+//		jhserver.start();
 	}
 	
 	private static class JHServer extends Thread {

@@ -12,7 +12,7 @@ public class Monitor {
 	public static final byte SYNC = 4;
 	
 	Socket[] sockets = new Socket[2];
-	LinkedList<PicData> buffert = new LinkedList<PicData>();
+	LinkedList<PicData>[] buffert = new LinkedList[2];
 	
 	private boolean userChangedMode = false;
 	private byte modeServer = AUTO;			// AUTO - MOVIE - IDLE
@@ -39,8 +39,8 @@ public class Monitor {
 	
 	
 	
-	public synchronized PicData getPicture() {
-		while(buffert.isEmpty()) {
+	public synchronized PicData getPicture(int id) {
+		while(buffert[id].isEmpty()) {
 			try {
 				wait();
 			} catch (InterruptedException e) {
@@ -49,7 +49,7 @@ public class Monitor {
 			}
 		}
 //		System.out.println("Pop Pic");
-		return buffert.removeFirst();
+		return buffert[id].removeFirst();
 	}
 	
 	/*
@@ -73,8 +73,8 @@ public class Monitor {
 		return modeServer;
 	}
 	
-	public synchronized void add(PicData data){
-		buffert.add(data);
+	public synchronized void add(PicData data, int id){
+		buffert[id].add(data);
 	//	System.out.println("add");
 		notifyAll();
 	}
