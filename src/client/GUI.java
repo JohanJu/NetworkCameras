@@ -97,18 +97,20 @@ public class GUI extends JFrame implements ActionListener{
 		}		
 	}
 	
-	public void updateIcon1(byte[] jpeg) {
+	public void updateIcon(byte[] jpeg, int cam) {
 		Image image = getToolkit().createImage(jpeg);
 		getToolkit().prepareImage(image, -1, -1, null);
-		icon1.setImage(image);
-		icon1.paintIcon(this, this.getGraphics(), 0, 60);
-	}
-	
-	public void updateIcon2(byte[] jpeg) {
-		Image image = getToolkit().createImage(jpeg);
-		getToolkit().prepareImage(image, -1, -1, null);
-		icon2.setImage(image);
-		icon2.paintIcon(this, this.getGraphics(), 640, 60);
+		
+		switch(cam) {
+		case 0:
+			icon1.setImage(image);
+			icon1.paintIcon(this, this.getGraphics(), 0, 60);
+			break;
+		case 1:
+			icon2.setImage(image);
+			icon2.paintIcon(this, this.getGraphics(), 640, 60);
+			break;
+		}
 	}
 	
 	/*
