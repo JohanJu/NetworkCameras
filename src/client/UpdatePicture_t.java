@@ -11,7 +11,7 @@ public class UpdatePicture_t extends Thread {
 	public void run() {
 		while(true) {
 			PicData picture = monitor.getPicture();
-			gui.updateIcon(picture.picture, picture.port);		//PORT??? ELLER CAM (SKA SKICKA 0/1)
+			gui.updateIcon(picture.picture, monitor.getCamNbr(picture.port));		//PORT??? ELLER CAM (SKA SKICKA 0/1)
 		}
 	}
 }

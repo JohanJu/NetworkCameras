@@ -111,7 +111,7 @@ public class GUI extends JFrame implements ActionListener{
 			icon2.paintIcon(this, this.getGraphics(), 640, 60);
 			break;
 		default:
-			System.out.println("Error update image GUI");
+			System.out.println("Error update image GUI " + cam);
 			break;
 		}
 	}
@@ -140,7 +140,7 @@ public class GUI extends JFrame implements ActionListener{
 			t5.setText("Mode on camera 2: " + text);
 			break;
 		default:
-			System.out.println("Error update textfield GUI");
+			System.out.println("Error update textfield GUI field: " + field);
 			break;
 		}		
 	}

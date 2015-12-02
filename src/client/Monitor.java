@@ -12,6 +12,12 @@ public class Monitor {
 	private boolean userChangedMode = false;
 	private byte mode = AUTO;
 	
+	private int[] port;
+	
+	public Monitor(int[] port) {
+		this.port = port;
+	}
+	
 	public synchronized PicData getPicture() {
 		while(buffert.isEmpty()) {
 			try {
@@ -33,7 +39,7 @@ public class Monitor {
 		notifyAll();
 	}
 	
-	public synchronized int getMode() throws InterruptedException{
+	public synchronized byte getMode() throws InterruptedException{
 		while(!userChangedMode){
 			wait();
 		}
@@ -44,6 +50,16 @@ public class Monitor {
 	public synchronized void add(PicData data){
 		buffert.add(data);
 		notifyAll();
+	}
+	
+	public synchronized int getCamNbr(int portNbr) {
+		for(int i = 0; i < port.length; ++i) {
+			if(portNbr == port[i]) {
+				return i;
+			}
+		}
+		//Ska ej komma hit...
+		return 10;
 	}
 	
 }
