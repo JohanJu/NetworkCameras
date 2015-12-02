@@ -1,6 +1,6 @@
 package client;
 
-public class UpdatePicture_t {
+public class UpdatePicture_t extends Thread {
 	Monitor monitor;
 	GUI gui;
 	public UpdatePicture_t(Monitor monitor, GUI gui) {
