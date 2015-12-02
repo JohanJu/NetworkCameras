@@ -1,5 +1,7 @@
 package client;
 
+import java.io.IOException;
+import java.net.Socket;
 import java.util.LinkedList;
 
 public class Monitor {
@@ -9,6 +11,7 @@ public class Monitor {
 	public static final byte ASYNC = 3;
 	public static final byte SYNC = 4;
 	
+	Socket[] sockets = new Socket[2];
 	LinkedList<PicData> buffert = new LinkedList<PicData>();
 	
 	private boolean userChangedMode = false;
@@ -16,10 +19,25 @@ public class Monitor {
 	private byte modeClient = SYNC;			// SYNC - AYSNC
 	
 	private int[] port;
+	private String[] hosts;
 	
-	public Monitor(int[] port) {
+	public Monitor(int[] port,String[] hosts) {
 		this.port = port;
+		this.hosts = hosts;
+		createConnection();
 	}
+	
+	public void createConnection(){
+		try {
+			sockets[0] = new Socket(hosts[0], port[0]);
+			sockets[1] = new Socket(hosts[1], port[1]);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
+		
+	}
+	
+	
 	
 	public synchronized PicData getPicture() {
 		while(buffert.isEmpty()) {

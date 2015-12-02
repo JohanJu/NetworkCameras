@@ -15,14 +15,17 @@ public class FromServer_T extends Thread {
 	byte low;
 	byte mode;
 	
+	int id;
+	
 	Monitor monitor;
 	
-	public FromServer_T(String server, int port, Monitor monitor) throws UnknownHostException, IOException{
+	public FromServer_T(String server, int port, Monitor monitor, int id) throws UnknownHostException, IOException{
 		this.server = server;
 		this.port = port;
 		
-		socket = new Socket(server, port);
-		is = socket.getInputStream();
+		this.id = id;
+		
+		is = monitor.sockets[id].getInputStream();
 		
 		this.monitor = monitor;
 	}

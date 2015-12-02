@@ -32,7 +32,7 @@ public class Demo {
 	
 	private static class Client1 extends Thread {
 		public void run() {
-			Client.main(new String[] {"localhost", "6077", "6078"});
+			Client.main(new String[] {"localhost","localhost" ,"6077", "6078"});
 		}
 	}
 	
