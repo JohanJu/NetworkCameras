@@ -19,9 +19,12 @@ public class Client {
 			FromServer_T read1 = new FromServer_T(address[0], port[0], monitor, 0);
 			FromServer_T read2 = new FromServer_T(address[1], port[1], monitor, 1);
 		
+			ToServer_T write = new ToServer_T(monitor);
 			read1.start();
 			read2.start();
+			write.start();
 			updateGUI.start();
+			
 		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

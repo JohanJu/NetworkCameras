@@ -59,6 +59,7 @@ public class Monitor {
 		if(0 <= mode && mode <= 3 ) {
 			this.modeServer = mode;
 			userChangedMode = true;
+			System.out.println("changed mode in monitor to: " + modeServer);
 			notifyAll();
 		} else {
 			this.modeClient = mode;

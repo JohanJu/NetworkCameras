@@ -26,7 +26,7 @@ public class CamToMonitor_t extends Thread{
 			mon.setJpeg(jpeg);
 			if(mode == Monitor.AUTO || mode == Monitor.IDLE)
 				for (int i = 0; i < 24; i++) {
-//					len = cam.getJPEG(jpeg, 11);
+					len = cam.getJPEG(jpeg, 11);
 					if (cam.motionDetected()&&mode == Monitor.AUTO) {
 						mon.testSetMode();
 						break;

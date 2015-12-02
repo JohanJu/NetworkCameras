@@ -28,7 +28,9 @@ public class FromClient_t extends Thread {
 				toClient.start();
 				while (!isInterrupted()) {
 					try {
-						mon.setMode((byte) is.read());
+						byte i = (byte) is.read(); 
+						System.out.println("Recieved from client: " + i);
+						mon.setMode(i);
 					} catch (IOException e) {
 						break;
 					}

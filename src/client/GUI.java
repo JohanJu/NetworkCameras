@@ -86,10 +86,13 @@ public class GUI extends JFrame implements ActionListener{
 		//Send new mode to monitor
 		if(e.getSource() == b1) {
 			monitor.updateMode(Monitor.AUTO);
+//			System.out.println("User pressed auto");
 		} else if (e.getSource() == b2) {
 			monitor.updateMode(Monitor.MOVIE);
+//			System.out.println("User pressed movie");
 		} else if (e.getSource() == b3) {
 			monitor.updateMode(Monitor.IDLE);
+//			System.out.println("User pressed idle");
 		} else if (e.getSource() == b4) {
 			monitor.updateMode(Monitor.ASYNC);
 		} else if (e.getSource() == b5) {

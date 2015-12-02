@@ -8,29 +8,16 @@ import java.net.UnknownHostException;
 
 public class ToServer_T extends Thread{
 	
-	String server;
-	int port;
-	OutputStream[] os;
+	OutputStream[] os = new OutputStream[2];
 	Socket socket;
-	
 	byte mode;
-	
-	
 	Monitor monitor;
 	
-	public ToServer_T(String server, int port, Monitor monitor) throws UnknownHostException, IOException{
-		this.server = server;
-		this.port = port;
-		
+	public ToServer_T(Monitor monitor) throws UnknownHostException, IOException{
 		this.monitor = monitor;
-	
-
+		
 		os[0] = monitor.sockets[0].getOutputStream();
 		os[1] = monitor.sockets[1].getOutputStream();
-
-		
-		
-		
 	}
 
 	public void run(){
@@ -39,13 +26,11 @@ public class ToServer_T extends Thread{
 				mode = monitor.getMode();
 				os[0].write(mode);
 				os[1].write(mode);
+//				System.out.println("send mode to server: " + mode);
 			} catch (InterruptedException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
-			
 		}
 	}
 	
