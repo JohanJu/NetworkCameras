@@ -13,6 +13,7 @@ public class UpdatePicture_t extends Thread {
 			PicData picture = monitor.getPicture();
 			int cam = monitor.getCamNbr(picture.port);
 			gui.updateIcon(picture.picture, cam);		//PORT??? ELLER CAM (SKA SKICKA 0/1)
+			gui.updateTextOnTextField(gui.CAM_TRIGGERED_MOVIE, "" + monitor.camTriggeredMovieMode);
 			switch(picture.mode) {
 			case Monitor.AUTO:
 				if(cam == 0) {

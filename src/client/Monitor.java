@@ -21,6 +21,9 @@ public class Monitor {
 	private int[] port;
 	private String[] hosts;
 	private long oldTime = 0;
+	
+	int camTriggeredMovieMode;
+	boolean triggMovieMode = false;
 
 	public Monitor(int[] port, String[] hosts) {
 		this.port = port;
@@ -69,6 +72,8 @@ public class Monitor {
 			}
 		}
 		oldTime = pd.timeStamp;
+		
+		
 		return pd;
 	}
 
@@ -118,6 +123,12 @@ public class Monitor {
 		// }
 		// buffer.add(data);
 		// System.out.println("add");
+		
+		if(data.mode == MOVIE && modeServer == AUTO) {
+			camTriggeredMovieMode = getCamNbr(data.port);
+			userChangedMode = true;
+			modeServer = MOVIE;
+		}
 		notifyAll();
 	}
 

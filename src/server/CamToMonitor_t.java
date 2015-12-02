@@ -1,6 +1,6 @@
 package server;
-
-import se.lth.cs.eda040.proxycamera.AxisM3006V;
+import se.lth.cs.eda040.fakecamera.AxisM3006V;
+//import se.lth.cs.eda040.proxycamera.AxisM3006V;
 
 public class CamToMonitor_t extends Thread {
 	static int nbr = 0;
@@ -39,6 +39,7 @@ public class CamToMonitor_t extends Thread {
 			if (mode == Monitor.AUTO || mode == Monitor.IDLE)
 				for (int i = 0; i < 24; i++) {
 					len = cam.getJPEG(jpeg, 11);
+					// använd myNb för att testa att movie sprids
 					if (cam.motionDetected() && mode == Monitor.AUTO) {
 						mon.testSetMode();
 						break;
