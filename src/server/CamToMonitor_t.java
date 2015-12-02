@@ -1,6 +1,6 @@
 package server;
 
-import se.lth.cs.eda040.fakecamera.*;
+import se.lth.cs.eda040.proxycamera.AxisM3006V;
 
 public class CamToMonitor_t extends Thread {
 	static int nbr = 0;
@@ -20,7 +20,7 @@ public class CamToMonitor_t extends Thread {
 		if (myNb == 0) {
 			cam.setProxy("argus-4.student.lth.se", 55501);
 		} else {
-			cam.setProxy("argus-6.student.lth.se", 55501);
+			cam.setProxy("argus-6.student.lth.se", 55502);
 		}
 		cam.connect();
 		byte[] jpeg = new byte[AxisM3006V.IMAGE_BUFFER_SIZE + 11];
