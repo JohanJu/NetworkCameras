@@ -16,6 +16,7 @@ public class FromClient_t extends Thread {
 	}
 
 	public void run() {
+		
 		ServerSocket serverSocket;
 		try {
 			serverSocket = new ServerSocket(port);

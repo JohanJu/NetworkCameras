@@ -16,6 +16,12 @@ public class ToClient_t extends Thread {
 		try {
 			while (!isInterrupted()) {
 				os.write(mon.getJpeg());
+
+				try {
+					Thread.sleep(40);
+				} catch (InterruptedException e) {
+				}
+
 			}
 		} catch (IOException e) {
 		}
