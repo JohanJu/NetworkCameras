@@ -39,8 +39,9 @@ public class JPEGHTTPServer {
 	/**
 	 * @param   port   The TCP port the server should listen to
 	 */
-	public JPEGHTTPServer(int port) {
+	public JPEGHTTPServer(int port, Monitor mon) {
 		myPort   = port;
+		this.mon = mon;
 		myCamera = new AxisM3006V();
 		myCamera.init();
 		myCamera.setProxy("argus-1.student.lth.se", port);
@@ -110,7 +111,8 @@ public class JPEGHTTPServer {
 						System.out.println("Failed to connect to camera!");
 						System.exit(1);
 					}
-					int len = myCamera.getJPEG(jpeg, 0);
+					//int len = myCamera.getJPEG(jpeg, 0);
+					jpeg = mon.getJpeg();
 					
 					os.write(jpeg, 0, len);
 					myCamera.close();
@@ -180,6 +182,7 @@ public class JPEGHTTPServer {
 
 	private int myPort;                             // TCP port for HTTP server
 	private AxisM3006V myCamera;                    // Makes up the JPEG images
+	private Monitor mon;
 
 	// By convention, these bytes are always sent between lines
 	// (CR = 13 = carriage return, LF = 10 = line feed)
