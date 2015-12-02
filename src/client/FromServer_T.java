@@ -4,7 +4,7 @@ import java.net.*;
 
 import se.lth.cs.eda040.proxycamera.AxisM3006V;
 
-public class ClientStream_T extends Thread {
+public class FromServer_T extends Thread {
 	
 	String server;
 	int port;
@@ -15,7 +15,9 @@ public class ClientStream_T extends Thread {
 	byte hi;
 	byte low;
 	
-	public ClientStream_T(String server, int port) throws UnknownHostException, IOException{
+	Monitor monitor;
+	
+	public FromServer_T(String server, int port, Monitor monitor) throws UnknownHostException, IOException{
 		this.server = server;
 		this.port = port;
 		
@@ -23,11 +25,11 @@ public class ClientStream_T extends Thread {
 		is = socket.getInputStream();
 		os = socket.getOutputStream();
 		
-		
+		this.monitor = monitor;
 	}
 
 	public void run(){
-		
+		while(true){
 		//Fetching Header
 		byte[] headerTime = new byte[8];
 		try {
@@ -40,25 +42,35 @@ public class ClientStream_T extends Thread {
 		}
 		PicData data = new PicData();
 		data.timeStamp = timeMillisFromArray(headerTime);
+		data.port = port;
 		
 		//Fetching picture
 		int status = 0;
 		int size = (hi & 0xFF) * 255 + (low & 0xFF);
 		int bytesLeft = size;
-		int bytesRead = 0;
+		int bytesRead = 0;	
+		byte[] tempPicture = new byte[8];
 		
 		do {
-			status = is.read(put.jpeg, bytesRead, bytesLeft);
+			try {
+				status = is.read(tempPicture, bytesRead, bytesLeft);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			if (status > 0) {
 				bytesRead += status;
 				bytesLeft -= status;
 			}
 		} while (status >= 0 && bytesLeft > 0);
 		
-		
-		
-		
+		data.picture = tempPicture;				
 	}
+	}
+		
+	
+	
+	
+	
 	
 	//Helping Methods
 	private long timeMillisFromArray(byte[] array) {

@@ -9,7 +9,7 @@ public class Monitor {
 	
 	LinkedList<PicData> buffert = new LinkedList<PicData>();
 	
-	private boolean UserChangedMode = false;
+	private boolean userChangedMode = false;
 	private int mode = AUTO;
 	
 	public PicData getPicture() {
@@ -29,8 +29,16 @@ public class Monitor {
 	 * */
 	public void updateMode(int mode) {
 		this.mode = mode;
-		UserChangedMode = true;
+		userChangedMode = true;
 		notifyAll();
+	}
+	
+	public int getMode() throws InterruptedException{
+		while(!userChangedMode){
+			wait();
+		}
+		userChangedMode = false;
+		return mode;
 	}
 	
 	
