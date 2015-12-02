@@ -12,7 +12,7 @@ public class Monitor {
 	private boolean userChangedMode = false;
 	private int mode = AUTO;
 	
-	public PicData getPicture() {
+	public synchronized PicData getPicture() {
 		while(buffert.isEmpty()) {
 			try {
 				wait();
@@ -27,13 +27,13 @@ public class Monitor {
 	/*
 	 * User changed mode via button in GUI
 	 * */
-	public void updateMode(int mode) {
+	public synchronized void updateMode(int mode) {
 		this.mode = mode;
 		userChangedMode = true;
 		notifyAll();
 	}
 	
-	public int getMode() throws InterruptedException{
+	public synchronized int getMode() throws InterruptedException{
 		while(!userChangedMode){
 			wait();
 		}
