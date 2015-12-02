@@ -13,8 +13,7 @@ public class ToServer_T extends Thread{
 	OutputStream os;
 	Socket socket;
 	
-	byte hi;
-	byte low;
+	byte mode;
 	
 	Monitor monitor;
 	
@@ -30,7 +29,15 @@ public class ToServer_T extends Thread{
 
 	public void run(){
 		while(true){
-			byte mode = monitor.getMode()
+			try {
+				mode = monitor.getMode();
+				os.write(mode);
+			} catch (InterruptedException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
 			
 		}
 	}
