@@ -5,7 +5,7 @@ public class Monitor {
 	public static final byte MOVIE   = 1;
 	public static final byte IDLE = 2;
 	private byte[] jpeg = new byte[AxisM3006V.IMAGE_BUFFER_SIZE+11];
-	private byte mode;
+	private byte mode = 1;
 	private long now = 0;
 	
 	synchronized byte[] getJpeg(long old) throws InterruptedException{
