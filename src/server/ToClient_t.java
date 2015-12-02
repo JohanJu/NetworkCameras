@@ -22,8 +22,8 @@ public class ToClient_t extends Thread {
 				try {
 					jpeg = mon.getJpeg(old);
 					System.out.println("ser leng "+ ((jpeg[9] & 0xFF) * 255 + (jpeg[10] & 0xFF)));
-					System.out.println("hi = " + jpeg[9]);
-					System.out.println("Low = " + jpeg[10]);
+//					System.out.println("hi = " + jpeg[9]);
+//					System.out.println("Low = " + jpeg[10]);
 					old = timeMillisFromArray(jpeg);
 					os.write(jpeg);
 				} catch (InterruptedException e1) {
