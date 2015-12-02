@@ -21,6 +21,7 @@ public class ToClient_t extends Thread {
 			while (!isInterrupted()) {
 				try {
 					jpeg = mon.getJpeg(old);
+					System.out.println("ser leng "+ ((jpeg[5] & 0xFF) * 255 + (jpeg[6] & 0xFF)));
 					old = timeMillisFromArray(jpeg);
 					os.write(jpeg);
 				} catch (InterruptedException e1) {
