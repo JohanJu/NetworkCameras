@@ -12,7 +12,6 @@ public class Server {
 		Thread camToMonitor = new CamToMonitor_t(mon);
 		Thread fromClient = new FromClient_t(mon, port);
 		camToMonitor.start();
-		fromClient.start();
-		
+		fromClient.start();	
 	}
 }
