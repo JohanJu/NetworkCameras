@@ -143,10 +143,10 @@ public class GUI extends JFrame implements ActionListener{
 		switch(button) {
 			case 1:
 				b1.setSelected(true);
-				b1.setSelected(false);
-				b1.setSelected(false);
-				b1.setSelected(false);
-				b1.setSelected(false);
+				b2.setSelected(false);
+				b3.setSelected(false);
+				b4.setSelected(false);
+				b5.setSelected(false);
 				break;
 			case 2:
 				break;
