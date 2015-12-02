@@ -28,46 +28,47 @@ public class FromServer_T extends Thread {
 	}
 
 	public void run(){
-		//while(true){
+	//while(true){
+	for(int i = 0; i < 3; ++i) {
 		//Fetching Header
-		byte[] headerTime = new byte[8];
-		try {
-			is.read(headerTime,0,8);
-			mode = (byte) is.read();
-			hi = (byte) is.read();
-			low = (byte) is.read();
-			System.out.println("hi = " + hi);
-			System.out.println("Low = " + low);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		PicData data = new PicData();
-		data.timeStamp = timeMillisFromArray(headerTime);
-		data.port = port;
-		
-		//Fetching picture
-		int status = 0;
-		int size = (hi & 0xFF) * 255 + (low & 0xFF);
-	System.out.println("size recieved: " + size);
-		int bytesLeft = size;
-		int bytesRead = 0;	
-		byte[] tempPicture = new byte[size+5];
-		
-		do {
+			byte[] headerTime = new byte[8];
 			try {
-				status = is.read(tempPicture, bytesRead, bytesLeft);
+				is.read(headerTime,0,8);
+				mode = (byte) is.read();
+				hi = (byte) is.read();
+				low = (byte) is.read();
+				System.out.println("hi = " + hi);
+				System.out.println("Low = " + low);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			if (status > 0) {
-				bytesRead += status;
-				bytesLeft -= status;
-			}
-		} while (status >= 0 && bytesLeft > 0);
-		
-		data.picture = tempPicture;
-		monitor.add(data);
-	//}
+			PicData data = new PicData();
+			data.timeStamp = timeMillisFromArray(headerTime);
+			data.port = port;
+			
+			//Fetching picture
+			int status = 0;
+			int size = (hi & 0xFF) * 255 + (low & 0xFF);
+			System.out.println("size recieved: " + size);
+			int bytesLeft = size;
+			int bytesRead = 0;	
+			byte[] tempPicture = new byte[size+5];
+			
+			do {
+				try {
+					status = is.read(tempPicture, bytesRead, bytesLeft);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				if (status > 0) {
+					bytesRead += status;
+					bytesLeft -= status;
+				}
+			} while (status >= 0 && bytesLeft > 0);
+			
+			data.picture = tempPicture;
+			monitor.add(data);
+		}
 	}
 		
 	

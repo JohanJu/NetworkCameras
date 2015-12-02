@@ -17,10 +17,10 @@ public class Client {
 
 		try {
 			FromServer_T read1 = new FromServer_T(args[0], Integer.parseInt(args[1]), monitor);
-			FromServer_T read2 = new FromServer_T(args[0], Integer.parseInt(args[2]), monitor);
+		//	FromServer_T read2 = new FromServer_T(args[0], Integer.parseInt(args[2]), monitor);
 		
 			read1.start();
-			read2.start();
+		//	read2.start();
 			updateGUI.start();
 		
 		} catch (IOException e) {

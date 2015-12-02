@@ -18,6 +18,7 @@ public class ToClient_t extends Thread {
 	public void run() {
 		byte[] jpeg = new byte[AxisM3006V.IMAGE_BUFFER_SIZE + 11];
 		try {
+			for(int i = 0;i < 3; ++i) {
 			//while (!isInterrupted()) {
 				try {
 					jpeg = mon.getJpeg(old);
@@ -33,7 +34,7 @@ public class ToClient_t extends Thread {
 //				} catch (InterruptedException e) {
 //				}
 
-			//}
+			}
 		} catch (IOException e) {
 		}
 	}
