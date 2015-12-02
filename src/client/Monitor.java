@@ -6,11 +6,14 @@ public class Monitor {
 	public static final byte AUTO  = 0;
 	public static final byte MOVIE   = 1;
 	public static final byte IDLE = 2;
+	public static final byte ASYNC = 3;
+	public static final byte SYNC = 4;
 	
 	LinkedList<PicData> buffert = new LinkedList<PicData>();
 	
 	private boolean userChangedMode = false;
-	private byte mode = AUTO;
+	private byte modeServer = AUTO;			// AUTO - MOVIE - IDLE
+	private byte modeClient = SYNC;			// SYNC - AYSNC
 	
 	private int[] port;
 	
@@ -27,7 +30,7 @@ public class Monitor {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Pop Pic");
+//		System.out.println("Pop Pic");
 		return buffert.removeFirst();
 	}
 	
@@ -35,9 +38,13 @@ public class Monitor {
 	 * User changed mode via button in GUI
 	 * */
 	public synchronized void updateMode(byte mode) {
-		this.mode = mode;
-		userChangedMode = true;
-		notifyAll();
+		if(0 <= mode && mode <= 3 ) {
+			this.modeServer = mode;
+			userChangedMode = true;
+			notifyAll();
+		} else {
+			this.modeClient = mode;
+		}
 	}
 	
 	public synchronized byte getMode() throws InterruptedException{
@@ -45,12 +52,12 @@ public class Monitor {
 			wait();
 		}
 		userChangedMode = false;
-		return mode;
+		return modeServer;
 	}
 	
 	public synchronized void add(PicData data){
 		buffert.add(data);
-		System.out.println("add");
+	//	System.out.println("add");
 		notifyAll();
 	}
 	

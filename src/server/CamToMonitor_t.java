@@ -11,7 +11,7 @@ public class CamToMonitor_t extends Thread{
 		cam.init();
 		cam.setProxy("argus-1.student.lth.se", 55501);
 		cam.connect();
-		byte[] jpeg = new byte[AxisM3006V.IMAGE_BUFFER_SIZE+7];
+		byte[] jpeg = new byte[AxisM3006V.IMAGE_BUFFER_SIZE+11];
 		int len;
 		byte mode = 0;
 		while(!isInterrupted()){
@@ -26,11 +26,11 @@ public class CamToMonitor_t extends Thread{
 			mon.setJpeg(jpeg);
 			if(mode == Monitor.AUTO || mode == Monitor.IDLE)
 				for (int i = 0; i < 24; i++) {
-					len = cam.getJPEG(jpeg, 11);
-					if (cam.motionDetected()) {
+//					len = cam.getJPEG(jpeg, 11);
+					if (cam.motionDetected()&&mode == Monitor.AUTO) {
 						mon.testSetMode();
 						break;
-					}
+					}					
 			}
 		}
 	}

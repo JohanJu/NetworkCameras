@@ -28,8 +28,8 @@ public class FromServer_T extends Thread {
 	}
 
 	public void run(){
-	//while(true){
-	for(int i = 0; i < 3; ++i) {
+	while(true){
+//	for(int i = 0; i < 3; ++i) {
 		//Fetching Header
 			byte[] headerTime = new byte[8];
 			try {
@@ -37,8 +37,8 @@ public class FromServer_T extends Thread {
 				mode = (byte) is.read();
 				hi = (byte) is.read();
 				low = (byte) is.read();
-				System.out.println("hi = " + hi);
-				System.out.println("Low = " + low);
+//				System.out.println("hi = " + hi);
+//				System.out.println("Low = " + low);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -49,7 +49,7 @@ public class FromServer_T extends Thread {
 			//Fetching picture
 			int status = 0;
 			int size = (hi & 0xFF) * 255 + (low & 0xFF);
-			System.out.println("size recieved: " + size);
+		//	System.out.println("size recieved: " + size);
 			int bytesLeft = size;
 			int bytesRead = 0;	
 			byte[] tempPicture = new byte[size+5];
