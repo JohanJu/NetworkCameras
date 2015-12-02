@@ -10,7 +10,7 @@ public class Monitor {
 	LinkedList<PicData> buffert = new LinkedList<PicData>();
 	
 	private boolean userChangedMode = false;
-	private int mode = AUTO;
+	private byte mode = AUTO;
 	
 	public PicData getPicture() {
 		while(buffert.isEmpty()) {
@@ -27,13 +27,13 @@ public class Monitor {
 	/*
 	 * User changed mode via button in GUI
 	 * */
-	public void updateMode(int mode) {
+	public void updateMode(byte mode) {
 		this.mode = mode;
 		userChangedMode = true;
 		notifyAll();
 	}
 	
-	public int getMode() throws InterruptedException{
+	public byte getMode() throws InterruptedException{
 		while(!userChangedMode){
 			wait();
 		}

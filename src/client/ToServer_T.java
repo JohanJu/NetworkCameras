@@ -30,7 +30,7 @@ public class ToServer_T extends Thread{
 
 	public void run(){
 		while(true){
-			
+			byte mode = monitor.getMode()
 			
 		}
 	}
