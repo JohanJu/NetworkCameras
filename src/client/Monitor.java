@@ -9,6 +9,9 @@ public class Monitor {
 	
 	LinkedList<PicData> buffert = new LinkedList<PicData>();
 	
+	private boolean UserChangedMode = false;
+	private int mode = AUTO;
+	
 	public PicData getPicture() {
 		while(buffert.isEmpty()) {
 			try {
@@ -20,4 +23,15 @@ public class Monitor {
 		}
 		return buffert.getLast();
 	}
+	
+	/*
+	 * User changed mode via button in GUI
+	 * */
+	public void updateMode(int mode) {
+		this.mode = mode;
+		UserChangedMode = true;
+		notifyAll();
+	}
+	
+	
 }
