@@ -15,14 +15,23 @@ public class CamToMonitor_t extends Thread{
 		int len;
 		byte mode = 0;
 		while(!isInterrupted()){
-			len = cam.getJPEG(jpeg, 7);
+			mode = mon.getMode();
+			len = cam.getJPEG(jpeg, 11);
 			cam.getTime(jpeg, 0);
 			byte hi = (byte) (len / 255);
 			byte lo = (byte) (len % 255);
-			jpeg[4]=mode;
-			jpeg[5]=hi;
-			jpeg[6]=lo;
+			jpeg[8]=mode;
+			jpeg[9]=hi;
+			jpeg[10]=lo;
 			mon.setJpeg(jpeg);
+			if(mode == Monitor.AUTO || mode == Monitor.IDLE)
+				for (int i = 0; i < 24; i++) {
+					len = cam.getJPEG(jpeg, 11);
+					if (cam.motionDetected()) {
+						mon.testSetMode();
+						break;
+					}
+			}
 		}
 	}
 

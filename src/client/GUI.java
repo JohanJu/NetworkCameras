@@ -97,18 +97,25 @@ public class GUI extends JFrame implements ActionListener{
 		}		
 	}
 	
-	public void updateIcon1(byte[] jpeg) {
+	public void updateIcon(byte[] jpeg, int cam) {
 		Image image = getToolkit().createImage(jpeg);
 		getToolkit().prepareImage(image, -1, -1, null);
-		icon1.setImage(image);
-		icon1.paintIcon(this, this.getGraphics(), 0, 60);
-	}
-	
-	public void updateIcon2(byte[] jpeg) {
-		Image image = getToolkit().createImage(jpeg);
-		getToolkit().prepareImage(image, -1, -1, null);
-		icon2.setImage(image);
-		icon2.paintIcon(this, this.getGraphics(), 640, 60);
+		
+		switch(cam) {
+		case 0:
+			System.out.println("update 0 ");
+			icon1.setImage(image);
+			icon1.paintIcon(this, this.getGraphics(), 0, 60);
+			break;
+		case 1:
+			System.out.println("update 1 ");
+			icon2.setImage(image);
+			icon2.paintIcon(this, this.getGraphics(), 640, 60);
+			break;
+		default:
+			System.out.println("Error update image GUI " + cam);
+			break;
+		}
 	}
 	
 	/*
@@ -134,6 +141,30 @@ public class GUI extends JFrame implements ActionListener{
 		case MODE_CAM2:
 			t5.setText("Mode on camera 2: " + text);
 			break;
+		default:
+			System.out.println("Error update textfield GUI field: " + field);
+			break;
 		}		
+	}
+	
+	public void setSelected(int button) {
+		switch(button) {
+			case 1:
+				b1.setSelected(true);
+				b2.setSelected(false);
+				b3.setSelected(false);
+				b4.setSelected(false);
+				b5.setSelected(false);
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+				
+		}
 	}
 }
