@@ -48,6 +48,7 @@ public class FromServer_T extends Thread {
 			PicData data = new PicData();
 			data.timeStamp = timeMillisFromArray(headerTime);
 			data.port = port;
+			data.mode = mode;
 			
 			//Fetching picture
 			int status = 0;
