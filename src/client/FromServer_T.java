@@ -9,7 +9,6 @@ public class FromServer_T extends Thread {
 	String server;
 	int port;
 	InputStream is;
-	OutputStream os;
 	Socket socket;
 	
 	byte hi;
@@ -23,7 +22,6 @@ public class FromServer_T extends Thread {
 		
 		socket = new Socket(server, port);
 		is = socket.getInputStream();
-		os = socket.getOutputStream();
 		
 		this.monitor = monitor;
 	}
@@ -63,7 +61,8 @@ public class FromServer_T extends Thread {
 			}
 		} while (status >= 0 && bytesLeft > 0);
 		
-		data.picture = tempPicture;				
+		data.picture = tempPicture;
+		monitor.add(data);
 	}
 	}
 		

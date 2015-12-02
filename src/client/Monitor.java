@@ -3,14 +3,14 @@ package client;
 import java.util.LinkedList;
 
 public class Monitor {
-	public static final int AUTO  = 0;
-	public static final int MOVIE   = 1;
-	public static final int IDLE = 2;
+	public static final byte AUTO  = 0;
+	public static final byte MOVIE   = 1;
+	public static final byte IDLE = 2;
 	
 	LinkedList<PicData> buffert = new LinkedList<PicData>();
 	
 	private boolean userChangedMode = false;
-	private int mode = AUTO;
+	private byte mode = AUTO;
 	
 	public synchronized PicData getPicture() {
 		while(buffert.isEmpty()) {
@@ -27,7 +27,7 @@ public class Monitor {
 	/*
 	 * User changed mode via button in GUI
 	 * */
-	public synchronized void updateMode(int mode) {
+	public synchronized void updateMode(byte mode) {
 		this.mode = mode;
 		userChangedMode = true;
 		notifyAll();
@@ -41,5 +41,9 @@ public class Monitor {
 		return mode;
 	}
 	
+	public synchronized void add(PicData data){
+		buffert.add(data);
+		notifyAll();
+	}
 	
 }
