@@ -8,7 +8,7 @@ import se.lth.cs.eda040.fakecamera.AxisM3006V;
 public class ToClient_t extends Thread {
 	Monitor mon;
 	OutputStream os;
-	long time = 0;
+	long old = 0;
 
 	public ToClient_t(Monitor mon, OutputStream os) {
 		this.mon = mon;
@@ -20,15 +20,15 @@ public class ToClient_t extends Thread {
 		try {
 			while (!isInterrupted()) {
 				try {
-					jpeg = mon.getJpeg(time);
-					time = timeMillisFromArray(jpeg);
+					jpeg = mon.getJpeg(old);
+					old = timeMillisFromArray(jpeg);
 					os.write(jpeg);
 				} catch (InterruptedException e1) {
 				}
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-				}
+//				try {
+//					Thread.sleep(1000);
+//				} catch (InterruptedException e) {
+//				}
 
 			}
 		} catch (IOException e) {
