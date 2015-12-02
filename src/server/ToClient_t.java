@@ -24,7 +24,7 @@ public class ToClient_t extends Thread {
 					
 					jpeg = mon.getJpeg(old);
 					int size = ((jpeg[9] & 0xFF) * 255 + (jpeg[10] & 0xFF));
-					System.out.println("ser leng "+ size);
+//					System.out.println("ser leng "+ size);
 //					System.out.println("hi = " + jpeg[9]);
 //					System.out.println("Low = " + jpeg[10]);
 					old = timeMillisFromArray(jpeg);

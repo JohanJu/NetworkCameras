@@ -49,7 +49,7 @@ public class FromServer_T extends Thread {
 			//Fetching picture
 			int status = 0;
 			int size = (hi & 0xFF) * 255 + (low & 0xFF);
-			System.out.println("size recieved: " + size);
+		//	System.out.println("size recieved: " + size);
 			int bytesLeft = size;
 			int bytesRead = 0;	
 			byte[] tempPicture = new byte[size+5];

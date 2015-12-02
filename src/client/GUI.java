@@ -85,15 +85,15 @@ public class GUI extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		//Send new mode to monitor
 		if(e.getSource() == b1) {
-			
+			monitor.updateMode(Monitor.AUTO);
 		} else if (e.getSource() == b2) {
-			
+			monitor.updateMode(Monitor.MOVIE);
 		} else if (e.getSource() == b3) {
-			
+			monitor.updateMode(Monitor.IDLE);
 		} else if (e.getSource() == b4) {
-			
+			monitor.updateMode(Monitor.ASYNC);
 		} else if (e.getSource() == b5) {
-			
+			monitor.updateMode(Monitor.SYNC);
 		}		
 	}
 	
@@ -103,12 +103,12 @@ public class GUI extends JFrame implements ActionListener{
 		
 		switch(cam) {
 		case 0:
-			System.out.println("update 0 ");
+		//	System.out.println("update 0 ");
 			icon1.setImage(image);
 			icon1.paintIcon(this, this.getGraphics(), 0, 60);
 			break;
 		case 1:
-			System.out.println("update 1 ");
+		//	System.out.println("update 1 ");
 			icon2.setImage(image);
 			icon2.paintIcon(this, this.getGraphics(), 640, 60);
 			break;
