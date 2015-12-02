@@ -29,7 +29,6 @@ public class JPEGHTTPServer {
 			theServer.handleRequests();
 		} catch(IOException e) {
 			System.out.println("Error!");
-			theServer.destroy();
 			System.exit(1);
 		}
 	}
@@ -42,10 +41,8 @@ public class JPEGHTTPServer {
 	 */
 	public JPEGHTTPServer(int port, Monitor mon) {
 		myPort   = port;
-		myCamera = new AxisM3006V();
-		myCamera.init();
-		myCamera.setProxy("argus-1.student.lth.se", port);
 		this.mon = mon;
+
 	}
 
 	// --------------------------------------------------------- PUBLIC METHODS
@@ -64,8 +61,7 @@ public class JPEGHTTPServer {
 	 * entire text lines from/to streams. Their implementations follow below.
 	 */
 	public void handleRequests() throws IOException {
-		byte[] jpeg = new byte[AxisM3006V.IMAGE_BUFFER_SIZE];
-		byte[] jpegTemp = new byte[AxisM3006V.IMAGE_BUFFER_SIZE + 11];
+		byte[] jpeg = new byte[AxisM3006V.IMAGE_BUFFER_SIZE + 11];
 		ServerSocket serverSocket = new ServerSocket(myPort);
 		System.out.println("HTTP server operating at port " + myPort + ".");
 
@@ -109,24 +105,15 @@ public class JPEGHTTPServer {
 					putLine(os, "Cache-Control: no-cache");
 					putLine(os, "");                   // Means 'end of header'
 
-					if (!myCamera.connect()) {
-						System.out.println("Failed to connect to camera!");
-						System.exit(1);
-					}
-					//int len = myCamera.getJPEG(jpeg, 0); // len = längden på bilden i byte
 					try {
-						jpegTemp = mon.getJpeg(-1);
+						jpeg = mon.getJpeg(-1);
 					} catch (Exception e) {
 						// Nope
 					}
 					
-					int len = ((jpegTemp[9] & 0xFF) * 255 + (jpeg[10] & 0xFF));
-					for (int i = 11; i < AxisM3006V.IMAGE_BUFFER_SIZE; i++) {
-						jpeg[i-11] = jpegTemp[i];
-					}
+					int len = ((jpeg[9] & 0xFF) * 255 + (jpeg[10] & 0xFF));
 					
-					os.write(jpeg, 0, len);
-					myCamera.close();
+					os.write(jpeg, 11, len);
 				}
 				else {
 					// Got some other request. Respond with an error message.
@@ -147,12 +134,8 @@ public class JPEGHTTPServer {
 			}
 		}
 	}
-	
-	public void destroy() {
-		myCamera.destroy();
-	}
-	
-	
+
+
 	// -------------------------------------------------------- PRIVATE METHODS
 
 	/**
@@ -192,7 +175,6 @@ public class JPEGHTTPServer {
 	// ----------------------------------------------------- PRIVATE ATTRIBUTES
 
 	private int myPort;                             // TCP port for HTTP server
-	private AxisM3006V myCamera;                    // Makes up the JPEG images
 	private Monitor mon;							// Monitor that allows access to the latest captured picture
 
 	// By convention, these bytes are always sent between lines
