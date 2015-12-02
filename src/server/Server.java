@@ -10,20 +10,23 @@ public class Server {
 		Thread fromClient = new FromClient_t(mon, Integer.parseInt(args[0]));
 		camToMonitor.start();
 		fromClient.start();
-//		JHServer jhserver = new JHServer(mon);
-//		jhserver.start();
+		JHServer jhserver = new JHServer(mon, args[1]);
+		jhserver.start();
+
 	}
 	
 	private static class JHServer extends Thread {
 		
 		Monitor mon;
+		String port;
 		
-		public JHServer (Monitor mon) {
+		public JHServer (Monitor mon, String port) {
 			this.mon = mon;
+			this.port = port;
 		}
 		
 		public void run() {
-			JPEGHTTPServer.main(new String[] {"6077"}, mon);
+			JPEGHTTPServer.main(new String[] {port}, mon);
 		}
 	}
 }
