@@ -10,10 +10,11 @@ public class ToServer_T extends Thread{
 	
 	String server;
 	int port;
-	OutputStream os;
+	OutputStream[] os;
 	Socket socket;
 	
 	byte mode;
+	
 	
 	Monitor monitor;
 	
@@ -21,17 +22,23 @@ public class ToServer_T extends Thread{
 		this.server = server;
 		this.port = port;
 		
-		socket = new Socket(server, port);
-		os = socket.getOutputStream();
-		
 		this.monitor = monitor;
+	
+
+		os[0] = monitor.sockets[0].getOutputStream();
+		os[1] = monitor.sockets[1].getOutputStream();
+
+		
+		
+		
 	}
 
 	public void run(){
 		while(true){
 			try {
 				mode = monitor.getMode();
-				os.write(mode);
+				os[0].write(mode);
+				os[1].write(mode);
 			} catch (InterruptedException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
