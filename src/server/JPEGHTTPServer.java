@@ -23,8 +23,8 @@ public class JPEGHTTPServer {
 
 	// ----------------------------------------------------------- MAIN PROGRAM
 
-	public static void main(String[]args) {
-		JPEGHTTPServer theServer = new JPEGHTTPServer(Integer.parseInt(args[0]));
+	public static void main(String[]args, Monitor mon) {
+		JPEGHTTPServer theServer = new JPEGHTTPServer(Integer.parseInt(args[0]), mon);
 		try {
 			theServer.handleRequests();
 		} catch(IOException e) {
@@ -34,16 +34,18 @@ public class JPEGHTTPServer {
 		}
 	}
 
+
 	// ------------------------------------------------------------ CONSTRUCTOR
 
 	/**
 	 * @param   port   The TCP port the server should listen to
 	 */
-	public JPEGHTTPServer(int port) {
+	public JPEGHTTPServer(int port, Monitor mon) {
 		myPort   = port;
 		myCamera = new AxisM3006V();
 		myCamera.init();
 		myCamera.setProxy("argus-1.student.lth.se", port);
+		this.mon = mon;
 	}
 
 	// --------------------------------------------------------- PUBLIC METHODS
@@ -63,6 +65,7 @@ public class JPEGHTTPServer {
 	 */
 	public void handleRequests() throws IOException {
 		byte[] jpeg = new byte[AxisM3006V.IMAGE_BUFFER_SIZE];
+		byte[] jpegTemp = new byte[AxisM3006V.IMAGE_BUFFER_SIZE + 11];
 		ServerSocket serverSocket = new ServerSocket(myPort);
 		System.out.println("HTTP server operating at port " + myPort + ".");
 
@@ -110,7 +113,17 @@ public class JPEGHTTPServer {
 						System.out.println("Failed to connect to camera!");
 						System.exit(1);
 					}
-					int len = myCamera.getJPEG(jpeg, 0);
+					//int len = myCamera.getJPEG(jpeg, 0); // len = längden på bilden i byte
+					try {
+						jpegTemp = mon.getJpeg(-1);
+					} catch (Exception e) {
+						// Nope
+					}
+					
+					int len = ((jpegTemp[9] & 0xFF) * 255 + (jpeg[10] & 0xFF));
+					for (int i = 11; i < AxisM3006V.IMAGE_BUFFER_SIZE; i++) {
+						jpeg[i-11] = jpegTemp[i];
+					}
 					
 					os.write(jpeg, 0, len);
 					myCamera.close();
@@ -180,6 +193,7 @@ public class JPEGHTTPServer {
 
 	private int myPort;                             // TCP port for HTTP server
 	private AxisM3006V myCamera;                    // Makes up the JPEG images
+	private Monitor mon;							// Monitor that allows access to the latest captured picture
 
 	// By convention, these bytes are always sent between lines
 	// (CR = 13 = carriage return, LF = 10 = line feed)
