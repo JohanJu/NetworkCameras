@@ -63,7 +63,7 @@ public class JPEGHTTPServer {
 	 * entire text lines from/to streams. Their implementations follow below.
 	 */
 	public void handleRequests() throws IOException {
-		byte[] jpeg = new byte[AxisM3006V.IMAGE_BUFFER_SIZE];
+		byte[] jpeg = new byte[AxisM3006V.IMAGE_BUFFER_SIZE + 7];
 		ServerSocket serverSocket = new ServerSocket(myPort);
 		System.out.println("HTTP server operating at port " + myPort + ".");
 
@@ -112,9 +112,9 @@ public class JPEGHTTPServer {
 						System.exit(1);
 					}
 					//int len = myCamera.getJPEG(jpeg, 0);
-					jpeg = mon.getJpeg();
+					jpegTemp = mon.getJpeg();
 					
-					os.write(jpeg, 0, len);
+					os.write(jpeg, 7, len);
 					myCamera.close();
 				}
 				else {
