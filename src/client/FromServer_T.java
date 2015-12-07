@@ -4,7 +4,7 @@ import java.net.*;
 
 import se.lth.cs.eda040.proxycamera.AxisM3006V;
 
-public class FromServer_T extends Thread {
+public class FromServer_t extends Thread {
 	
 	String server;
 	int port;
@@ -19,7 +19,7 @@ public class FromServer_T extends Thread {
 	
 	Monitor monitor;
 	
-	public FromServer_T(String server, int port, Monitor monitor, int id) throws UnknownHostException, IOException{
+	public FromServer_t(String server, int port, Monitor monitor, int id) throws UnknownHostException, IOException{
 		this.server = server;
 		this.port = port;
 		

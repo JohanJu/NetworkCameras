@@ -6,14 +6,14 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class ToServer_T extends Thread{
+public class ToServer_t extends Thread{
 	
 	OutputStream[] os = new OutputStream[2];
 	Socket socket;
 	byte mode;
 	Monitor monitor;
 	
-	public ToServer_T(Monitor monitor) throws UnknownHostException, IOException{
+	public ToServer_t(Monitor monitor) throws UnknownHostException, IOException{
 		this.monitor = monitor;
 		
 		os[0] = monitor.sockets[0].getOutputStream();

@@ -134,7 +134,6 @@ public class Monitor {
 		// System.out.println("add");
 
 		if (data.mode == MOVIE && modeServer == AUTO) {
-		//	camTriggeredMovieMode = getCamNbr(data.port);
 			camTriggeredMovieMode = data.camNbr;
 			userChangedMode = true;
 			modeServer = MOVIE;

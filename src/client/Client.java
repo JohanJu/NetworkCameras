@@ -16,10 +16,10 @@ public class Client {
 		UpdatePicture_t updateGUI = new UpdatePicture_t(monitor, gui);
 
 		try {
-			FromServer_T read1 = new FromServer_T(address[0], port[0], monitor, 0);
-			FromServer_T read2 = new FromServer_T(address[1], port[1], monitor, 1);
+			FromServer_t read1 = new FromServer_t(address[0], port[0], monitor, 0);
+			FromServer_t read2 = new FromServer_t(address[1], port[1], monitor, 1);
 		
-			ToServer_T write = new ToServer_T(monitor);
+			ToServer_t write = new ToServer_t(monitor);
 			read1.start();
 			read2.start();
 			write.start();
