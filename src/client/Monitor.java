@@ -18,11 +18,12 @@ public class Monitor {
 	private boolean userChangedMode = false;
 	private byte modeServer = AUTO; // AUTO - MOVIE - IDLE
 	private byte modeClient = SYNC; // SYNC - AYSNC
+	private byte modeClientA = 0; // 0 = auto, 1 = force
 	private int[] port;
 	private String[] hosts;
 	private long oldTime = 0;
 	private long modeTrigger = 0;
-	
+
 	int camTriggeredMovieMode;
 	boolean triggMovieMode = false;
 
@@ -34,7 +35,7 @@ public class Monitor {
 
 	public void createConnection() {
 		try {
-			System.out.println(hosts[0]+" "+ port[0]+" "+ hosts[1]+" "+ port[1]);
+			System.out.println(hosts[0] + " " + port[0] + " " + hosts[1] + " " + port[1]);
 			sockets[0] = new Socket(hosts[0], port[0]);
 			sockets[1] = new Socket(hosts[1], port[1]);
 		} catch (IOException e) {
@@ -51,33 +52,34 @@ public class Monitor {
 			}
 		}
 		PicData pd = buffer.removeFirst();
-		if (modeClient == SYNC) {
-			long time = pd.timeStamp + 500;
-			long stime = System.currentTimeMillis();
-			while (time > stime) {
-				try {
-					wait(time - stime);
-					stime = System.currentTimeMillis();
-				} catch (InterruptedException e) {
+		if (modeClientA == 0) {
+			if (modeClient == SYNC) {
+				long time = pd.timeStamp + 500;
+				long stime = System.currentTimeMillis();
+				while (time > stime) {
+					try {
+						wait(time - stime);
+						stime = System.currentTimeMillis();
+					} catch (InterruptedException e) {
+					}
 				}
-			}
-			if (buffer.isEmpty()) {
-				modeClient = ASYNC;
-				modeTrigger = stime+1000;
-			} else {
-				if (buffer.getFirst().timeStamp - time > 200) {
+				if (buffer.isEmpty()) {
 					modeClient = ASYNC;
-					modeTrigger = stime+1000;
+					modeTrigger = stime + 1000;
+				} else {
+					if (buffer.getFirst().timeStamp - time > 200) {
+						modeClient = ASYNC;
+						modeTrigger = stime + 1000;
+					}
 				}
-			}
-		} else {
-			if (pd.timeStamp - oldTime < 200 && modeTrigger < System.currentTimeMillis()) {
-				modeClient = SYNC;
+			} else {
+				if (pd.timeStamp - oldTime < 200 && modeTrigger < System.currentTimeMillis()) {
+					modeClient = SYNC;
+				}
 			}
 		}
 		oldTime = pd.timeStamp;
-		
-		
+
 		return pd;
 	}
 
@@ -85,13 +87,16 @@ public class Monitor {
 	 * User changed mode via button in GUI
 	 */
 	public synchronized void updateMode(byte mode) {
-		if (0 <= mode && mode <= 3) {
+		if (0 <= mode && mode < 3) {
 			this.modeServer = mode;
 			userChangedMode = true;
+			modeClientA = 0;
 			System.out.println("changed mode in monitor to: " + modeServer);
 			notifyAll();
 		} else {
+			modeClientA = 1;
 			this.modeClient = mode;
+			
 		}
 	}
 
@@ -127,8 +132,8 @@ public class Monitor {
 		// }
 		// buffer.add(data);
 		// System.out.println("add");
-		
-		if(data.mode == MOVIE && modeServer == AUTO) {
+
+		if (data.mode == MOVIE && modeServer == AUTO) {
 			camTriggeredMovieMode = getCamNbr(data.port);
 			userChangedMode = true;
 			modeServer = MOVIE;
