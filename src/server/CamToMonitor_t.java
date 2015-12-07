@@ -1,6 +1,6 @@
 package server;
-//import se.lth.cs.eda040.fakecamera.AxisM3006V;
-import se.lth.cs.eda040.proxycamera.AxisM3006V;
+import se.lth.cs.eda040.fakecamera.AxisM3006V;
+//import se.lth.cs.eda040.proxycamera.AxisM3006V;
 
 public class CamToMonitor_t extends Thread {
 	static volatile int nbr = 0;

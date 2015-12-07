@@ -5,15 +5,15 @@ import server.Server;
 public class Demo {
 
 	public static void main(String[] args) {
-//		Server1 s1 = new Server1();
-//		s1.start();
-//		Server2 s2 = new Server2();
-//		s2.start();
-//		try {
-//			Thread.currentThread().sleep(500);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
+		Server1 s1 = new Server1();
+		s1.start();
+		Server2 s2 = new Server2();
+		s2.start();
+		try {
+			Thread.currentThread().sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		Client1 c = new Client1();
 		c.start();
 	}
@@ -32,8 +32,8 @@ public class Demo {
 	
 	private static class Client1 extends Thread {
 		public void run() {
-//			Client.main(new String[] {"localhost","localhost" ,"6077", "6078"});
-			Client.main(new String[] {"argus-4.student.lth.se","argus-6.student.lth.se" ,"55502", "55501"});
+			Client.main(new String[] {"localhost","localhost" ,"6077", "6078"});
+	//		Client.main(new String[] {"argus-4.student.lth.se","argus-6.student.lth.se" ,"55502", "55501"});
 		}
 	}
 	
