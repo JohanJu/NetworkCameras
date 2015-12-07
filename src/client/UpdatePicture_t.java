@@ -12,7 +12,7 @@ public class UpdatePicture_t extends Thread {
 	public void run() {
 		while(true) {
 			PicData picture = monitor.getPicture();
-			int cam = monitor.getCamNbr(picture.port);
+			int cam = picture.camNbr;
 			gui.updateIcon(picture.picture, cam);
 			gui.updateTextOnTextField(gui.CAM_TRIGGERED_MOVIE, "" + monitor.camTriggeredMovieMode);
 			switch(picture.mode) {
