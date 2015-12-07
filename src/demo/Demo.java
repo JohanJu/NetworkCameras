@@ -33,7 +33,7 @@ public class Demo {
 	private static class Client1 extends Thread {
 		public void run() {
 			Client.main(new String[] {"localhost","localhost" ,"6077", "6078"});
-//			Client.main(new String[] {"argus-4.student.lth.se","argus-6.student.lth.se" ,"55502", "55501"});
+	//		Client.main(new String[] {"argus-4.student.lth.se","argus-6.student.lth.se" ,"55502", "55501"});
 		}
 	}
 	
