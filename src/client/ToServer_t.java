@@ -26,7 +26,7 @@ public class ToServer_t extends Thread{
 				mode = monitor.getMode();
 				os[0].write(mode);
 				os[1].write(mode);
-				System.out.println("send mode to server: " + mode);
+//				System.out.println("send mode to server: " + mode);
 			} catch (InterruptedException | IOException e) {
 				e.printStackTrace();
 			}

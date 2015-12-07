@@ -13,7 +13,6 @@ public class CamToMonitor_t extends Thread {
 	}
 
 	public void run() {
-		System.out.println("nbr "+myNb);
 		AxisM3006V cam;
 		cam = new AxisM3006V();
 		cam.init();

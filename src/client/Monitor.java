@@ -35,7 +35,6 @@ public class Monitor {
 
 	public void createConnection() {
 		try {
-			System.out.println(hosts[0] + " " + port[0] + " " + hosts[1] + " " + port[1]);
 			sockets[0] = new Socket(hosts[0], port[0]);
 			sockets[1] = new Socket(hosts[1], port[1]);
 		} catch (IOException e) {
@@ -123,15 +122,6 @@ public class Monitor {
 			}
 			buffer.add(i, data);
 		}
-		// for (int i = buffer.size() - 1; i > 0; i--) {
-		// if (time > buffer.get(i).timeStamp) {
-		// buffer.add(i - 1, data);
-		// break;
-		// }
-		// }
-		// }
-		// buffer.add(data);
-		// System.out.println("add");
 
 		if (data.mode == MOVIE && modeServer == AUTO) {
 			camTriggeredMovieMode = data.camNbr;
@@ -147,7 +137,7 @@ public class Monitor {
 				return i;
 			}
 		}
-		// Ska ej komma hit...
+		// error
 		return 10;
 	}
 }
