@@ -32,6 +32,4 @@ public class ToServer_t extends Thread{
 			}
 		}
 	}
-	
-	
 }
