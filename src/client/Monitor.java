@@ -21,6 +21,7 @@ public class Monitor {
 	private int[] port;
 	private String[] hosts;
 	private long oldTime = 0;
+	private long modeTrigger = 0;
 	
 	int camTriggeredMovieMode;
 	boolean triggMovieMode = false;
@@ -61,13 +62,15 @@ public class Monitor {
 			}
 			if (buffer.isEmpty()) {
 				modeClient = ASYNC;
+				modeTrigger = stime+1000;
 			} else {
 				if (buffer.getFirst().timeStamp - time > 200) {
 					modeClient = ASYNC;
+					modeTrigger = stime+1000;
 				}
 			}
 		} else {
-			if (pd.timeStamp - oldTime < 200) {
+			if (pd.timeStamp - oldTime < 200 && modeTrigger < System.currentTimeMillis()) {
 				modeClient = SYNC;
 			}
 		}
