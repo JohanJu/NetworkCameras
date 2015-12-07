@@ -5,4 +5,5 @@ public class PicData {
 	public int port;
 	public byte[] picture;
 	public byte mode;
+	public long delay;
 }

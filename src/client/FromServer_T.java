@@ -47,6 +47,7 @@ public class FromServer_T extends Thread {
 			}
 			PicData data = new PicData();
 			data.timeStamp = timeMillisFromArray(headerTime);
+			data.delay = System.currentTimeMillis() - data.timeStamp;
 			data.port = port;
 			data.mode = mode;
 			
