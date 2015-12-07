@@ -34,6 +34,7 @@ public class Monitor {
 
 	public void createConnection() {
 		try {
+			System.out.println(hosts[0]+" "+ port[0]+" "+ hosts[1]+" "+ port[1]);
 			sockets[0] = new Socket(hosts[0], port[0]);
 			sockets[1] = new Socket(hosts[1], port[1]);
 		} catch (IOException e) {
