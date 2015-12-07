@@ -17,7 +17,6 @@ public class Monitor {
 		return re;
 	}
 	synchronized void setJpeg(byte[] newJpeg){
-//		jpeg = newJpeg;
 		jpeg = new byte[jpeg.length];
 		System.arraycopy(newJpeg, 0, jpeg, 0, newJpeg.length );
 		now = timeMillisFromArray(jpeg);
